@@ -1,13 +1,12 @@
 package com.example.android.miwok;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,22 +17,19 @@ import java.util.ArrayList;
  */
 
 public class RvWordAdapter extends RecyclerView.Adapter<RvWordAdapter.ViewHolder> {
+    private final OnListItemClick listener;
     private ArrayList<Word> mWords;
     private int mColorResourceId;
     private Context mContext;
-    private int lastPosition = -1;
+
 
     //constructor
-    public RvWordAdapter(Context context, ArrayList<Word> words, int ColorReourceId) {
+    public RvWordAdapter(Context context, ArrayList<Word> words, int ColorReourceId, final OnListItemClick listener) {
         mContext = context;
         mWords = words;
         mColorResourceId = ColorReourceId;
+        this.listener = listener;
 
-    }
-
-    // Easy access to the context object in the recyclerview
-    private Context getContext() {
-        return mContext;
     }
 
     // Usually involves inflating a layout from XML and returning the holder
@@ -49,9 +45,9 @@ public class RvWordAdapter extends RecyclerView.Adapter<RvWordAdapter.ViewHolder
 
     // Involves populating data into the item through holder
     @Override
-    public void onBindViewHolder(RvWordAdapter.ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(RvWordAdapter.ViewHolder viewHolder, final int position) {
         // Get the data model based on position
-        Word word = mWords.get(position);
+        final Word word = mWords.get(position);
 
         // Set item views based on your views and data model
         ImageView imageView = viewHolder.mImageView;
@@ -59,8 +55,7 @@ public class RvWordAdapter extends RecyclerView.Adapter<RvWordAdapter.ViewHolder
         if(word.hasImage()) {
             imageView.setImageResource(word.getImageResourceId());
             imageView.setVisibility(View.VISIBLE);
-        }
-        else {
+        } else {
             imageView.setVisibility(View.GONE);
         }
 
@@ -84,12 +79,40 @@ public class RvWordAdapter extends RecyclerView.Adapter<RvWordAdapter.ViewHolder
         //Applying a basic animation to the word group
         setAnimation(viewHolder.mWordGroup);
 
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View view) {
+                listener.onClickListener(word);
+            }
+        });
+
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (position % 2 == 0) {
+            return 1;
+        } else {
+            return 2;
+        }
     }
 
     // Basic Fade in Animation
-    private void setAnimation(View viewToAnimate) {
-            Animation animation = AnimationUtils.loadAnimation(mContext, android.R.anim.fade_in);
-            viewToAnimate.startAnimation(animation);
+    private void setAnimation(final View viewToAnimate) {
+
+        ValueAnimator va = ValueAnimator.ofFloat(0, 1);
+        va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                float value = (float) animation.getAnimatedValue();
+                viewToAnimate.setAlpha(value);
+            }
+        });
+        va.setDuration(500);
+        va.start();
+
+//            Animation animation = AnimationUtils.loadAnimation(mContext, android.R.anim.fade_in);
+//            viewToAnimate.startAnimation(animation);
     }
 
     // Returns the total count of items in the list
@@ -98,7 +121,12 @@ public class RvWordAdapter extends RecyclerView.Adapter<RvWordAdapter.ViewHolder
         return mWords.size();
     }
 
+    public interface OnListItemClick {
+        void onClickListener(Word item);
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
+
         public ImageView mImageView;
         public TextView mdefaultText;
         public TextView mMiwokText;
@@ -112,7 +140,10 @@ public class RvWordAdapter extends RecyclerView.Adapter<RvWordAdapter.ViewHolder
             mMiwokText = (TextView) itemView.findViewById(R.id.miwokText);
             mTextContainer = itemView.findViewById(R.id.text_container);
             mWordGroup = itemView.findViewById(R.id.word_group);
+
         }
     }
+
+
 }
 
