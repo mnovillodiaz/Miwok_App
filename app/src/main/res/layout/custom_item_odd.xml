@@ -1,47 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/word_group"
+    android:id="@+id/word_group_odd"
     android:layout_width="match_parent"
     android:layout_height="@dimen/list_item_height"
+    android:background="?android:attr/selectableItemBackground"
     android:orientation="horizontal">
 
     <ImageView
-        android:id="@+id/image"
+        android:id="@+id/image_odd"
         android:layout_width="@dimen/list_item_height"
         android:layout_height="@dimen/list_item_height"
         android:background="@color/tan_background"
         android:src="@mipmap/ic_launcher" />
 
     <LinearLayout
-        android:id="@+id/text_container"
+        android:id="@+id/text_container_odd"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_toRightOf="@id/image"
-        android:background="@color/category_numbers"
+        android:layout_toRightOf="@id/image_odd"
+        android:background="@color/tan_background"
         android:orientation="vertical"
         android:paddingLeft="16dp">
 
         <TextView
-            android:id="@+id/miwokText"
+            android:id="@+id/miwokText_odd"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="bottom"
             android:textAppearance="?android:textAppearanceMedium"
-            android:textColor="@android:color/white"
+            android:textColor="@android:color/black"
             android:textIsSelectable="true"
             android:textStyle="bold"
             tools:text="Lutti" />
 
         <TextView
-            android:id="@+id/defaultText"
+            android:id="@+id/defaultText_odd"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="top"
             android:textAppearance="?android:textAppearanceMedium"
-            android:textColor="@android:color/white"
+            android:textColor="@android:color/black"
             tools:text="One" />
 
     </LinearLayout>
@@ -52,7 +53,7 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_margin="16dp"
-        android:background="@color/category_numbers"
-        android:src="@drawable/ic_play_arrow_white_24dp" />
+        android:background="@color/tan_background"
+        android:src="@drawable/ic_play_black" />
 
 </RelativeLayout>

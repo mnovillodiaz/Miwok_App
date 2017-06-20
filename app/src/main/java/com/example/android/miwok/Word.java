@@ -30,7 +30,7 @@ public class Word {
         mSound = sound;
     }
 
-    /*
+    /**
     Constructor to create a new Word object with image
          @param defaultTranslation
          @param miwokTranslation
@@ -64,5 +64,15 @@ public class Word {
 
     public boolean hasImage() {
         return mImageResourceId != NO_IMAGE_PROVIDED;
+    }
+
+    @Override
+    public String toString() {
+        return "Word{" +
+                "mDefaultTranslation='" + mDefaultTranslation + '\'' +
+                ", mMiwokTranslation='" + mMiwokTranslation + '\'' +
+                ", mSound=" + mSound +
+                ", mImageResourceId=" + mImageResourceId +
+                '}';
     }
 }

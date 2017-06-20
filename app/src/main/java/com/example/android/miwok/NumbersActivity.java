@@ -1,20 +1,49 @@
 package com.example.android.miwok;
 
+import android.content.Context;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class NumbersActivity extends AppCompatActivity {
 
+    private MediaPlayer mediaPlayer;
+
+    private MediaPlayer.OnCompletionListener listener = new MediaPlayer.OnCompletionListener() {
+        @Override
+        public void onCompletion(MediaPlayer mp) {
+            releaseMediaPlayer();
+        }
+    };
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.rv_word_list);
+
+        final AudioManager am = (AudioManager) this.getSystemService(Context.AUDIO_SERVICE);
+        final AudioManager.OnAudioFocusChangeListener afChangeListener =
+                new AudioManager.OnAudioFocusChangeListener() {
+                    public void onAudioFocusChange(int focusChange) {
+                        if (focusChange == AudioManager.AUDIOFOCUS_LOSS) {
+                            releaseMediaPlayer();
+                        } else if (focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT) {
+                            mediaPlayer.pause();
+                        } else if (focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK) {
+                            mediaPlayer.pause();
+                        } else if (focusChange == AudioManager.AUDIOFOCUS_GAIN) {
+                            if (mediaPlayer != null) {
+                                mediaPlayer.start();
+                            }
+                        }
+                    }
+                };
 
         ArrayList<Word> words = new ArrayList<Word>();
         words.add(new Word("one", "lutti", R.drawable.number_one, R.raw.number_one));
@@ -42,9 +71,17 @@ public class NumbersActivity extends AppCompatActivity {
         RvWordAdapter adapter = new RvWordAdapter(this, words, R.color.category_numbers, new RvWordAdapter.OnListItemClick() {
             @Override
             public void onClickListener(Word item) {
-                MediaPlayer mediaPlayer = MediaPlayer.create(NumbersActivity.this, item.getSound());
-                mediaPlayer.start();
-                Toast.makeText(getApplicationContext(), "Playing", Toast.LENGTH_SHORT).show();
+                // Request audio focus for playback
+                int result = am.requestAudioFocus(afChangeListener, AudioManager.STREAM_MUSIC,
+                        AudioManager.AUDIOFOCUS_GAIN);
+                // if audio focus granted
+                if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
+                    releaseMediaPlayer();
+                    mediaPlayer = MediaPlayer.create(NumbersActivity.this, item.getSound());
+                    mediaPlayer.start();
+                    mediaPlayer.setOnCompletionListener(listener);
+                    am.abandonAudioFocus(afChangeListener);
+                }
             }
         });
         // Attach the adapter to the recyclerview to populate items
@@ -58,4 +95,26 @@ public class NumbersActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Clean up the media player by releasing its resources.
+     */
+    private void releaseMediaPlayer() {
+        // If the media player is not null, then it may be currently playing a sound.
+        if (mediaPlayer != null) {
+            // Regardless of the current state of the media player, release its resources
+            // because we no longer need it.
+            mediaPlayer.release();
+
+            // Set the media player back to null. For our code, we've decided that
+            // setting the media player to null is an easy way to tell that the media player
+            // is not configured to play an audio file at the moment.
+            mediaPlayer = null;
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        releaseMediaPlayer();
+    }
 }

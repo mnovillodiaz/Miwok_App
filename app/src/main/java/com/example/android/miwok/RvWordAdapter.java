@@ -2,7 +2,6 @@ package com.example.android.miwok;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,8 +20,6 @@ public class RvWordAdapter extends RecyclerView.Adapter<RvWordAdapter.ViewHolder
     private ArrayList<Word> mWords;
     private int mColorResourceId;
     private Context mContext;
-
-
     //constructor
     public RvWordAdapter(Context context, ArrayList<Word> words, int ColorReourceId, final OnListItemClick listener) {
         mContext = context;
@@ -35,65 +32,82 @@ public class RvWordAdapter extends RecyclerView.Adapter<RvWordAdapter.ViewHolder
     // Usually involves inflating a layout from XML and returning the holder
     @Override
     public RvWordAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        // Inflate the custom layout
-        View wordView = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_item, parent, false);
 
-        // Return a new holder instance
-        ViewHolder viewHolder = new ViewHolder(wordView);
-        return viewHolder;
+        if (viewType == ViewType.EVEN.ordinal()) {
+            View wordView = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_item, parent, false);
+            ViewHolder viewHolder = new ViewHolder(wordView);
+            return viewHolder;
+        } else if (viewType == ViewType.ODD.ordinal()) {
+            View wordView = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_item_odd, parent, false);
+            ViewHolder viewHolder = new ViewHolder(wordView);
+            return viewHolder;
+        }
+        return null;
     }
 
     // Involves populating data into the item through holder
     @Override
     public void onBindViewHolder(RvWordAdapter.ViewHolder viewHolder, final int position) {
-        // Get the data model based on position
+
         final Word word = mWords.get(position);
+        if (getItemViewType(position) == ViewType.EVEN.ordinal()) {
+            ImageView imageView = viewHolder.mImageView;
 
-        // Set item views based on your views and data model
-        ImageView imageView = viewHolder.mImageView;
-
-        if(word.hasImage()) {
-            imageView.setImageResource(word.getImageResourceId());
-            imageView.setVisibility(View.VISIBLE);
-        } else {
-            imageView.setVisibility(View.GONE);
-        }
-
-        TextView textViewDefault = viewHolder.mdefaultText;
-        textViewDefault.setText(word.getDefaultTranslation());
-
-        TextView textViewMiwok = viewHolder.mMiwokText;
-        textViewMiwok.setText(word.getMiwokTranslation());
-
-        // Find the textContainer to be able to set the color depending in position
-        View TextContainer = viewHolder.mTextContainer;
-        if(position % 2 == 0){
-            TextContainer.setBackgroundResource(R.color.tan_background);
-            textViewDefault.setTextColor(Color.GRAY);
-            textViewMiwok.setTextColor(Color.GRAY);
-        }
-        else {
-            TextContainer.setBackgroundResource(mColorResourceId);
-        }
-
-        //Applying a basic animation to the word group
-        setAnimation(viewHolder.mWordGroup);
-
-        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View view) {
-                listener.onClickListener(word);
+            if (word.hasImage()) {
+                imageView.setImageResource(word.getImageResourceId());
+                imageView.setVisibility(View.VISIBLE);
+            } else {
+                imageView.setVisibility(View.GONE);
             }
-        });
 
+            TextView textViewDefault = viewHolder.mdefaultText;
+            textViewDefault.setText(word.getDefaultTranslation());
+
+            TextView textViewMiwok = viewHolder.mMiwokText;
+            textViewMiwok.setText(word.getMiwokTranslation());
+            //Applying a basic animation to the word group
+            setAnimation(viewHolder.mWordGroup);
+
+            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(final View view) {
+                    listener.onClickListener(word);
+                }
+            });
+        } else if (getItemViewType(position) == ViewType.ODD.ordinal()) {
+            ImageView imageView = viewHolder.mImageViewOdd;
+
+            if (word.hasImage()) {
+                imageView.setImageResource(word.getImageResourceId());
+                imageView.setVisibility(View.VISIBLE);
+            } else {
+                imageView.setVisibility(View.GONE);
+            }
+
+            TextView textViewDefault = viewHolder.mdefaultTextOdd;
+            textViewDefault.setText(word.getDefaultTranslation());
+
+            TextView textViewMiwok = viewHolder.mMiwokTextOdd;
+            textViewMiwok.setText(word.getMiwokTranslation());
+
+            //Applying a basic animation to the word group
+            setAnimation(viewHolder.mWordGroupOdd);
+
+            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(final View view) {
+                    listener.onClickListener(word);
+                }
+            });
+        }
     }
 
     @Override
     public int getItemViewType(int position) {
         if (position % 2 == 0) {
-            return 1;
+            return 0;
         } else {
-            return 2;
+            return 1;
         }
     }
 
@@ -110,15 +124,17 @@ public class RvWordAdapter extends RecyclerView.Adapter<RvWordAdapter.ViewHolder
         });
         va.setDuration(500);
         va.start();
-
-//            Animation animation = AnimationUtils.loadAnimation(mContext, android.R.anim.fade_in);
-//            viewToAnimate.startAnimation(animation);
     }
 
     // Returns the total count of items in the list
     @Override
     public int getItemCount() {
         return mWords.size();
+    }
+
+    private enum ViewType {
+        EVEN,
+        ODD,
     }
 
     public interface OnListItemClick {
@@ -133,6 +149,12 @@ public class RvWordAdapter extends RecyclerView.Adapter<RvWordAdapter.ViewHolder
         public View mTextContainer;
         public View mWordGroup;
 
+        public ImageView mImageViewOdd;
+        public TextView mdefaultTextOdd;
+        public TextView mMiwokTextOdd;
+        public View mTextContainerOdd;
+        public View mWordGroupOdd;
+
         public ViewHolder(View itemView) {
             super(itemView);
             mImageView = (ImageView) itemView.findViewById(R.id.image);
@@ -140,6 +162,11 @@ public class RvWordAdapter extends RecyclerView.Adapter<RvWordAdapter.ViewHolder
             mMiwokText = (TextView) itemView.findViewById(R.id.miwokText);
             mTextContainer = itemView.findViewById(R.id.text_container);
             mWordGroup = itemView.findViewById(R.id.word_group);
+            mImageViewOdd = (ImageView) itemView.findViewById(R.id.image_odd);
+            mdefaultTextOdd = (TextView) itemView.findViewById(R.id.defaultText_odd);
+            mMiwokTextOdd = (TextView) itemView.findViewById(R.id.miwokText_odd);
+            mTextContainerOdd = itemView.findViewById(R.id.text_container_odd);
+            mWordGroupOdd = itemView.findViewById(R.id.word_group_odd);
 
         }
     }
