@@ -17,8 +17,7 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NumbersFragment extends Fragment {
-
+public class ColorsFragment extends Fragment {
 
     private MediaPlayer mediaPlayer;
     private MediaPlayer.OnCompletionListener listener = new MediaPlayer.OnCompletionListener() {
@@ -28,7 +27,7 @@ public class NumbersFragment extends Fragment {
         }
     };
 
-    public NumbersFragment() {
+    public ColorsFragment() {
         // Required empty public constructor
     }
 
@@ -50,7 +49,7 @@ public class NumbersFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.rv_word_list, container, false);
 
@@ -72,19 +71,17 @@ public class NumbersFragment extends Fragment {
                         }
                     }
                 };
-
         ArrayList<Word> words = new ArrayList<Word>();
-        words.add(new Word("one", "lutti", R.drawable.number_one, R.raw.number_one));
-        words.add(new Word("two", "otiiko", R.drawable.number_two, R.raw.number_two));
-        words.add(new Word("three", "tolookosu", R.drawable.number_three, R.raw.number_three));
-        words.add(new Word("four", "oyyisa", R.drawable.number_four, R.raw.number_four));
-        words.add(new Word("five", "massokka", R.drawable.number_five, R.raw.number_five));
-        words.add(new Word("six", "temmokka", R.drawable.number_six, R.raw.number_six));
-        words.add(new Word("seven", "kenekaku", R.drawable.number_seven, R.raw.number_seven));
-        words.add(new Word("eight", "kawinta", R.drawable.number_eight, R.raw.number_eight));
-        words.add(new Word("nine", "wo′e", R.drawable.number_nine, R.raw.number_nine));
-        words.add(new Word("ten", "na′aacha", R.drawable.number_ten, R.raw.number_ten));
-
+        words.add(new Word("red", "weṭeṭṭi", R.drawable.color_red, R.raw.color_red));
+        words.add(new Word("green", "chokokki", R.drawable.color_green, R.raw.color_green));
+        words.add(new Word("brown", "ṭakaakki", R.drawable.color_brown, R.raw.color_brown));
+        words.add(new Word("gray", "ṭopoppi", R.drawable.color_gray, R.raw.color_gray));
+        words.add(new Word("black", "kululli", R.drawable.color_black, R.raw.color_black));
+        words.add(new Word("white", "elelli", R.drawable.color_white, R.raw.color_white));
+        words.add(new Word("dusty yellow", "ṭopiisә", R.drawable.color_dusty_yellow,
+                R.raw.color_dusty_yellow));
+        words.add(new Word("mustard yellow", "chiwiiṭә", R.drawable.color_mustard_yellow,
+                R.raw.color_mustard_yellow));
 
         //RecyclerView Adapter in use
         // Lookup the recyclerview in activity layout
@@ -92,23 +89,23 @@ public class NumbersFragment extends Fragment {
         rvWords.setHasFixedSize(true);
 
         // Create adapter passing in the sample user data
-        RvWordAdapter adapter = new RvWordAdapter(getActivity(), words, R.color.category_numbers,
+        RvWordAdapter adapter = new RvWordAdapter(getActivity(), words, R.color.category_colors,
                 new RvWordAdapter.OnListItemClick() {
-            @Override
-            public void onClickListener(Word item) {
-                // Request audio focus for playback
-                int result = am.requestAudioFocus(afChangeListener, AudioManager.STREAM_MUSIC,
-                        AudioManager.AUDIOFOCUS_GAIN);
-                // if audio focus granted
-                if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
-                    releaseMediaPlayer();
-                    mediaPlayer = MediaPlayer.create(getActivity(), item.getSound());
-                    mediaPlayer.start();
-                    mediaPlayer.setOnCompletionListener(listener);
-                    am.abandonAudioFocus(afChangeListener);
-                }
-            }
-        });
+                    @Override
+                    public void onClickListener(Word item) {
+                        // Request audio focus for playback
+                        int result = am.requestAudioFocus(afChangeListener, AudioManager.STREAM_MUSIC,
+                                AudioManager.AUDIOFOCUS_GAIN);
+                        // if audio focus granted
+                        if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
+                            releaseMediaPlayer();
+                            mediaPlayer = MediaPlayer.create(getActivity(), item.getSound());
+                            mediaPlayer.start();
+                            mediaPlayer.setOnCompletionListener(listener);
+                            am.abandonAudioFocus(afChangeListener);
+                        }
+                    }
+                });
         // Attach the adapter to the recyclerview to populate items
         rvWords.setAdapter(adapter);
         // Set layout manager to position the items
@@ -126,4 +123,5 @@ public class NumbersFragment extends Fragment {
         super.onStop();
         releaseMediaPlayer();
     }
+
 }
