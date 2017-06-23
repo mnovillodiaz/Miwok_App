@@ -21,7 +21,8 @@ public class RvWordAdapter extends RecyclerView.Adapter<RvWordAdapter.ViewHolder
     private int mColorResourceId;
     private Context mContext;
     //constructor
-    public RvWordAdapter(Context context, ArrayList<Word> words, int ColorReourceId, final OnListItemClick listener) {
+    public RvWordAdapter(Context context, ArrayList<Word> words, int ColorReourceId,
+                         final OnListItemClick listener) {
         mContext = context;
         mWords = words;
         mColorResourceId = ColorReourceId;
@@ -34,11 +35,13 @@ public class RvWordAdapter extends RecyclerView.Adapter<RvWordAdapter.ViewHolder
     public RvWordAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         if (viewType == ViewType.EVEN.ordinal()) {
-            View wordView = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_item, parent, false);
+            View wordView = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_item,
+                    parent, false);
             ViewHolder viewHolder = new ViewHolder(wordView);
             return viewHolder;
         } else if (viewType == ViewType.ODD.ordinal()) {
-            View wordView = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_item_odd, parent, false);
+            View wordView = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_item_odd,
+                    parent, false);
             ViewHolder viewHolder = new ViewHolder(wordView);
             return viewHolder;
         }
