@@ -65,6 +65,11 @@ public class RvWordAdapter extends RecyclerView.Adapter<RvWordAdapter.ViewHolder
 
             TextView textViewMiwok = viewHolder.mMiwokText;
             textViewMiwok.setText(word.getMiwokTranslation());
+
+            // setting the background color of TextContainer and play to the category one
+            viewHolder.mTextContainer.setBackgroundResource(mColorResourceId);
+            viewHolder.mPlayIcon.setBackgroundResource(mColorResourceId);
+
             //Applying a basic animation to the word group
             setAnimation(viewHolder.mWordGroup);
 
@@ -148,6 +153,7 @@ public class RvWordAdapter extends RecyclerView.Adapter<RvWordAdapter.ViewHolder
         public TextView mMiwokText;
         public View mTextContainer;
         public View mWordGroup;
+        public ImageView mPlayIcon;
 
         public ImageView mImageViewOdd;
         public TextView mdefaultTextOdd;
@@ -162,6 +168,7 @@ public class RvWordAdapter extends RecyclerView.Adapter<RvWordAdapter.ViewHolder
             mMiwokText = (TextView) itemView.findViewById(R.id.miwokText);
             mTextContainer = itemView.findViewById(R.id.text_container);
             mWordGroup = itemView.findViewById(R.id.word_group);
+            mPlayIcon = (ImageView) itemView.findViewById(R.id.playIcon);
             mImageViewOdd = (ImageView) itemView.findViewById(R.id.image_odd);
             mdefaultTextOdd = (TextView) itemView.findViewById(R.id.defaultText_odd);
             mMiwokTextOdd = (TextView) itemView.findViewById(R.id.miwokText_odd);
