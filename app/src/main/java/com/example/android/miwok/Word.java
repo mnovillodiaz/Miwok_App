@@ -17,7 +17,7 @@ public class Word {
     private int mImageResourceId = NO_IMAGE_PROVIDED;
 
 
-     /*
+    /**
     Constructor to create a new Word object (without image)
          @param defaultTranslation
          @param miwokTranslation

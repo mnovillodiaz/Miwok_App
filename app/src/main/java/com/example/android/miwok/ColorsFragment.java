@@ -106,7 +106,7 @@ public class ColorsFragment extends Fragment {
                         }
                     }
                 });
-        // Attach the adapter to the recyclerview to populate items
+        // Attach the adapter to the RecyclerView to populate items
         rvWords.setAdapter(adapter);
         // Set layout manager to position the items
         rvWords.setLayoutManager(new LinearLayoutManager(getActivity()));

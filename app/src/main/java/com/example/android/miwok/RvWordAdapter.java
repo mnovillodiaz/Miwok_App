@@ -20,6 +20,7 @@ public class RvWordAdapter extends RecyclerView.Adapter<RvWordAdapter.ViewHolder
     private ArrayList<Word> mWords;
     private int mColorResourceId;
     private Context mContext;
+
     //constructor
     public RvWordAdapter(Context context, ArrayList<Word> words, int ColorReourceId,
                          final OnListItemClick listener) {

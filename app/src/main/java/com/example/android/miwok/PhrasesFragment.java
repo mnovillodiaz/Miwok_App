@@ -85,7 +85,7 @@ public class PhrasesFragment extends Fragment {
         words.add(new Word("Come here.", "әnni'nem", R.raw.phrase_come_here));
 
         //RecyclerView Adapter in use
-        // Lookup the recyclerview in activity layout
+        // Lookup the RecyclerView in activity layout
         RecyclerView rvWords = (RecyclerView) rootView.findViewById(R.id.rvWordList);
         rvWords.setHasFixedSize(true);
 
@@ -106,7 +106,7 @@ public class PhrasesFragment extends Fragment {
                 }
             }
         });
-        // Attach the adapter to the recyclerview to populate items
+        // Attach the adapter to the RecyclerView to populate items
         rvWords.setAdapter(adapter);
         // Set layout manager to position the items
         rvWords.setLayoutManager(new LinearLayoutManager(getActivity()));
