@@ -8,13 +8,13 @@ public class Word {
 
     private static final int NO_IMAGE_PROVIDED = -1;
     //String default translation
-    private String mDefaultTranslation;
+    private String defaultTranslation;
     //String miwok translation
-    private String mMiwokTranslation;
+    private String miwokTranslation;
     //String sound
-    private int mSound;
+    private int sound;
     //image
-    private int mImageResourceId = NO_IMAGE_PROVIDED;
+    private int imageResourceId = NO_IMAGE_PROVIDED;
 
 
     /**
@@ -25,9 +25,9 @@ public class Word {
      * */
 
     public Word(String defaultTranslation, String miwokTranslation, int sound) {
-        mDefaultTranslation= defaultTranslation;
-        mMiwokTranslation = miwokTranslation;
-        mSound = sound;
+        this.defaultTranslation = defaultTranslation;
+        this.miwokTranslation = miwokTranslation;
+        this.sound = sound;
     }
 
     /**
@@ -39,40 +39,40 @@ public class Word {
      * */
 
     public Word(String defaultTranslation, String miwokTranslation, int imageResourceId, int sound) {
-        mDefaultTranslation= defaultTranslation;
-        mMiwokTranslation = miwokTranslation;
-        mImageResourceId = imageResourceId;
-        mSound = sound;
+        this.defaultTranslation = defaultTranslation;
+        this.miwokTranslation = miwokTranslation;
+        this.imageResourceId = imageResourceId;
+        this.sound = sound;
     }
 
     //getters
     public String getDefaultTranslation() {
-        return mDefaultTranslation;
+        return defaultTranslation;
     }
 
     public String getMiwokTranslation(){
-        return mMiwokTranslation;
+        return miwokTranslation;
     }
 
     public int getImageResourceId(){
-        return mImageResourceId;
+        return imageResourceId;
     }
 
     public int getSound() {
-        return mSound;
+        return sound;
     }
 
     public boolean hasImage() {
-        return mImageResourceId != NO_IMAGE_PROVIDED;
+        return imageResourceId != NO_IMAGE_PROVIDED;
     }
 
     @Override
     public String toString() {
         return "Word{" +
-                "mDefaultTranslation='" + mDefaultTranslation + '\'' +
-                ", mMiwokTranslation='" + mMiwokTranslation + '\'' +
-                ", mSound=" + mSound +
-                ", mImageResourceId=" + mImageResourceId +
+                "mDefaultTranslation='" + defaultTranslation + '\'' +
+                ", mMiwokTranslation='" + miwokTranslation + '\'' +
+                ", mSound=" + sound +
+                ", mImageResourceId=" + imageResourceId +
                 '}';
     }
 }

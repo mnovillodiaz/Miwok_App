@@ -52,7 +52,6 @@ public class RvWordAdapter extends RecyclerView.Adapter<RvWordAdapter.ViewHolder
     // Involves populating data into the item through holder
     @Override
     public void onBindViewHolder(RvWordAdapter.ViewHolder viewHolder, final int position) {
-
         final Word word = mWords.get(position);
         if (getItemViewType(position) == ViewType.EVEN.ordinal()) {
             ImageView imageView = viewHolder.mImageView;
