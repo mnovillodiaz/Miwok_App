@@ -1,5 +1,6 @@
 package com.example.android.miwok;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,10 +16,19 @@ import java.util.List;
  */
 
 public class OddAdapterDelegate extends AdapterDelegate<List<Word>> {
+    private ArrayList<Word> words;
+    private int colorResourceId;
+    private Context context;
 
-    //TODO What should be here??
-    protected OddAdapterDelegate(int viewType) {
-        super(viewType);
+    public OddAdapterDelegate(Context context, ArrayList<Word> words, int colorResourceId) {
+        this.context = context;
+        this.words = words;
+        this.colorResourceId = colorResourceId;
+    }
+
+    @Override
+    public int getItemViewType() {
+        return 1;
     }
 
     @Override
@@ -29,7 +40,7 @@ public class OddAdapterDelegate extends AdapterDelegate<List<Word>> {
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent) {
         View wordView = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_item_odd,
                 parent, false);
-        RvWordAdapter.ViewHolder viewHolder = new RvWordAdapter.ViewHolder(wordView);
+        ViewHolder viewHolder = new ViewHolder(wordView);
         return viewHolder;
     }
 
@@ -80,6 +91,4 @@ public class OddAdapterDelegate extends AdapterDelegate<List<Word>> {
 
         }
     }
-
-
 }

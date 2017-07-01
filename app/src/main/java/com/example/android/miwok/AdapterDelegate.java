@@ -9,20 +9,12 @@ import android.view.ViewGroup;
 
 public abstract class AdapterDelegate<T> {
 
-    private final int viewType;
-
-    protected AdapterDelegate(final int viewType) {
-        this.viewType = viewType;
-    }
-
     /**
      * Get the view type integer. Must be unique within every Adapter
      *
      * @return the integer representing the view type
      */
-    public int getItemViewType() {
-        return viewType;
-    }
+    public abstract int getItemViewType();
 
     /**
      * Called to determine whether this AdapterDelegate is the responsible for the given data

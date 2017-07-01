@@ -1,5 +1,6 @@
 package com.example.android.miwok;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,10 +16,19 @@ import java.util.List;
  */
 
 public class EvenAdapterDelegate extends AdapterDelegate<List<Word>> {
+    private ArrayList<Word> words;
+    private int colorResourceId;
+    private Context context;
 
-    //TODO What should be here??
-    protected EvenAdapterDelegate(int viewType) {
-        super(viewType);
+    protected EvenAdapterDelegate(Context context, ArrayList<Word> words, int colorResourceId) {
+        this.context = context;
+        this.words = words;
+        this.colorResourceId = colorResourceId;
+    }
+
+    @Override
+    public int getItemViewType() {
+        return 0;
     }
 
     @Override
@@ -29,7 +40,7 @@ public class EvenAdapterDelegate extends AdapterDelegate<List<Word>> {
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent) {
         View wordView = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_item,
                 parent, false);
-        RvWordAdapter.ViewHolder viewHolder = new RvWordAdapter.ViewHolder(wordView);
+        ViewHolder viewHolder = new ViewHolder(wordView);
         return viewHolder;
     }
 
@@ -57,9 +68,9 @@ public class EvenAdapterDelegate extends AdapterDelegate<List<Word>> {
         // An easy solution would be create an EvenAdapterDelegate for each of the categories, but
         // this would mean to duplicate a lot of code.
 
-/*        // setting the background color of TextContainer and play to the category one
-        vh.mTextContainer.setBackgroundResource(mColorResourceId);
-        vh.mPlayIcon.setBackgroundResource(mColorResourceId);*/
+       // setting the background color of TextContainer and play to the category one
+        vh.mTextContainer.setBackgroundResource(colorResourceId);
+        vh.mPlayIcon.setBackgroundResource(colorResourceId);
 
         // TODO How to implement OnclickListerner
         /*viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
