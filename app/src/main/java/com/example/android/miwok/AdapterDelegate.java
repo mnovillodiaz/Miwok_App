@@ -47,8 +47,9 @@ public abstract class AdapterDelegate<T> {
 
     public abstract void onBindViewHolder(T items, int position, RecyclerView.ViewHolder viewHolder);
 
+    // TODO Ask Meri if this is the best place for that:
     // Basic Fade in Animation
-    public void setAnimation(final View viewToAnimate) {
+    protected void setAnimation(final View viewToAnimate) {
 
         ValueAnimator va = ValueAnimator.ofFloat(0, 1);
         va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
