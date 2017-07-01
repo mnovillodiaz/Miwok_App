@@ -1,6 +1,8 @@
 package com.example.android.miwok;
 
+import android.animation.ValueAnimator;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.view.ViewGroup;
 
 /**
@@ -45,5 +47,19 @@ public abstract class AdapterDelegate<T> {
 
     public abstract void onBindViewHolder(T items, int position, RecyclerView.ViewHolder viewHolder);
 
+    // Basic Fade in Animation
+    public void setAnimation(final View viewToAnimate) {
+
+        ValueAnimator va = ValueAnimator.ofFloat(0, 1);
+        va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                float value = (float) animation.getAnimatedValue();
+                viewToAnimate.setAlpha(value);
+            }
+        });
+        va.setDuration(500);
+        va.start();
+    }
 
 }

@@ -63,6 +63,9 @@ public class OddAdapterDelegate extends AdapterDelegate<List<Word>> {
         TextView textViewMiwok = vh.mMiwokTextOdd;
         textViewMiwok.setText(word.getMiwokTranslation());
 
+        //applying basic animation
+        setAnimation(vh.mWordGroupOdd);
+
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

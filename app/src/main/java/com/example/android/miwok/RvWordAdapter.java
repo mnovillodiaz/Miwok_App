@@ -1,6 +1,5 @@
 package com.example.android.miwok;
 
-import android.animation.ValueAnimator;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -62,20 +61,6 @@ public class RvWordAdapter extends RecyclerView.Adapter {
         return delegatesManager.getItemViewType(mWords, position);
     }
 
-    // Basic Fade in Animation
-    private void setAnimation(final View viewToAnimate) {
-
-        ValueAnimator va = ValueAnimator.ofFloat(0, 1);
-        va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                float value = (float) animation.getAnimatedValue();
-                viewToAnimate.setAlpha(value);
-            }
-        });
-        va.setDuration(500);
-        va.start();
-    }
 
     // Returns the total count of items in the list
     @Override

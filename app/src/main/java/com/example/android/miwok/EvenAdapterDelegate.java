@@ -69,6 +69,9 @@ public class EvenAdapterDelegate extends AdapterDelegate<List<Word>> {
         vh.mTextContainer.setBackgroundResource(colorResourceId);
         vh.mPlayIcon.setBackgroundResource(colorResourceId);
 
+        //applying basic animation
+        setAnimation(vh.mWordGroup);
+
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
