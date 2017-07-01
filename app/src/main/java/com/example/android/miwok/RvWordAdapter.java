@@ -22,17 +22,17 @@ public class RvWordAdapter extends RecyclerView.Adapter {
     private AdapterDelegatesManager<List<Word>> delegatesManager;
 
     //constructor
-    public RvWordAdapter(Context context, ArrayList<Word> words, int ColorReourceId,
+    public RvWordAdapter(Context context, ArrayList<Word> words, int ColorResourceId,
                          final OnListItemClick listener) {
         mContext = context;
         mWords = words;
-        mColorResourceId = ColorReourceId;
+        mColorResourceId = ColorResourceId;
         this.listener = listener;
 
         // Delegates
         delegatesManager = new AdapterDelegatesManager<>();
-        delegatesManager.addDelegate(new OddAdapterDelegate(context, words, ColorReourceId));
-        delegatesManager.addDelegate(new EvenAdapterDelegate(context, words, ColorReourceId));
+        delegatesManager.addDelegate(new OddAdapterDelegate(context, words, ColorResourceId));
+        delegatesManager.addDelegate(new EvenAdapterDelegate(context, words, ColorResourceId));
 
     }
 
@@ -45,7 +45,18 @@ public class RvWordAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         delegatesManager.onBindViewHolder(mWords, position, holder);
+
+        //TODO Ask Meri: is this the correct place to implement the OnClickListener using delegates?
+        final Word word = mWords.get(position);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onClickListener(word);
+                }
+            });
     }
+
+
     @Override
     public int getItemViewType(int position) {
         return delegatesManager.getItemViewType(mWords, position);

@@ -20,11 +20,13 @@ public class EvenAdapterDelegate extends AdapterDelegate<List<Word>> {
     private int colorResourceId;
     private Context context;
 
+
     protected EvenAdapterDelegate(Context context, ArrayList<Word> words, int colorResourceId) {
         this.context = context;
         this.words = words;
         this.colorResourceId = colorResourceId;
     }
+
 
     @Override
     public int getItemViewType() {
@@ -63,22 +65,9 @@ public class EvenAdapterDelegate extends AdapterDelegate<List<Word>> {
         TextView textViewMiwok = vh.mMiwokText;
         textViewMiwok.setText(word.getMiwokTranslation());
 
-        // TODO How to get the Color Resource ID in the adapter?
-        // For every category a different color is set
-        // An easy solution would be create an EvenAdapterDelegate for each of the categories, but
-        // this would mean to duplicate a lot of code.
-
        // setting the background color of TextContainer and play to the category one
         vh.mTextContainer.setBackgroundResource(colorResourceId);
         vh.mPlayIcon.setBackgroundResource(colorResourceId);
-
-        // TODO How to implement OnclickListerner
-        /*viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View view) {
-                listener.onClickListener(word);
-            }
-        });*/
 
     }
 
@@ -102,4 +91,5 @@ public class EvenAdapterDelegate extends AdapterDelegate<List<Word>> {
             mPlayIcon = (ImageView) itemView.findViewById(R.id.playIcon);
         }
     }
+
 }

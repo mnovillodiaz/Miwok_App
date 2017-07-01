@@ -63,14 +63,6 @@ public class OddAdapterDelegate extends AdapterDelegate<List<Word>> {
         TextView textViewMiwok = vh.mMiwokTextOdd;
         textViewMiwok.setText(word.getMiwokTranslation());
 
-
-        // TODO How to implement OnClick Listener
-        /*  viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View view) {
-                listener.onClickListener(word);
-            }
-        });*/
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
