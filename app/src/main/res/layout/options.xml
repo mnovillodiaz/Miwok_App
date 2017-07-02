@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/tan_background">
+
+    <TextView
+        android:id="@+id/numbers_category"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/list_item_height"
+        android:background="@color/category_numbers"
+        android:text="@string/category_numbers"
+        style="@style/CategoryStyle"/>
+
+    <TextView
+        android:id="@+id/family_category"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/list_item_height"
+        android:background="@color/category_family"
+        android:text="@string/category_family"
+        style="@style/CategoryStyle"/>
+
+    <TextView
+        android:id="@+id/colors_category"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/list_item_height"
+        android:background="@color/category_colors"
+        android:text="@string/category_colors"
+        style="@style/CategoryStyle"/>
+
+    <TextView
+        android:id="@+id/phrases_category"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/list_item_height"
+        android:background="@color/category_phrases"
+        android:text="@string/category_phrases"
+        style="@style/CategoryStyle"/>
+
+</LinearLayout>
