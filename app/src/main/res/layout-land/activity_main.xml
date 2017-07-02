@@ -1,0 +1,21 @@
+<!-- Layout for the main screen -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:id="@+id/mainFrameLayout">
+
+    <!-- "Fragment A" -->
+    <fragment class="com.example.android.miwok.OptionsFragment"
+        android:id="@+id/options"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"/>
+
+    <!-- "Fragment B" -->
+    <fragment class="com.example.android.miwok.NumbersFragment"
+        android:id="@+id/numbers"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"/>
+</LinearLayout>

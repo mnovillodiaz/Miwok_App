@@ -8,6 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import static com.example.android.miwok.R.id.mainFrameLayout;
+import static com.example.android.miwok.R.id.numbers;
+
 /**
  * Created by mdiaz on 02.07.17.
  */
@@ -23,6 +26,7 @@ public class OptionsFragment  extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.options, container, false);
+
         TextView numbersTextView = (TextView) rootView.findViewById(R.id.numbers_category);
         TextView familyTextView = (TextView) rootView.findViewById(R.id.family_category);
         TextView colorsTextView = (TextView) rootView.findViewById(R.id.colors_category);
@@ -54,10 +58,18 @@ public class OptionsFragment  extends Fragment implements View.OnClickListener {
         }
     }
 
-    private void goToFragment(Fragment frag){
+    private void goToFragment(Fragment frag) {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.mainFrameLayout, frag);
-        transaction.addToBackStack(null);
-        transaction.commit();
+        Fragment tablet = getFragmentManager().findFragmentById(R.id.numbers);
+        if (tablet == null) {
+            transaction.replace(mainFrameLayout, frag);
+            transaction.addToBackStack(null);
+            transaction.commit();
+        } else {
+            transaction.replace(numbers, frag);
+            transaction.addToBackStack(null);
+            transaction.commit();
+
+        }
     }
 }
