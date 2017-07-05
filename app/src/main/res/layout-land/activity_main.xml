@@ -6,15 +6,15 @@
     android:id="@+id/mainFrameLayout">
 
     <!-- "Fragment A" -->
-    <fragment class="com.example.android.miwok.OptionsFragment"
-        android:id="@+id/options"
+    <FrameLayout
+        android:id="@+id/options_framelayout"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"/>
 
     <!-- "Fragment B" -->
-    <fragment class="com.example.android.miwok.NumbersFragment"
-        android:id="@+id/numbers"
+    <FrameLayout
+        android:id="@+id/details_framelayout"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"/>

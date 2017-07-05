@@ -1,15 +1,12 @@
 package com.example.android.miwok;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import static com.example.android.miwok.R.id.mainFrameLayout;
-import static com.example.android.miwok.R.id.numbers;
 
 /**
  * Created by mdiaz on 02.07.17.
@@ -60,13 +57,13 @@ public class OptionsFragment  extends Fragment implements View.OnClickListener {
 
     private void goToFragment(Fragment frag) {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        Fragment tablet = getFragmentManager().findFragmentById(R.id.numbers);
-        if (tablet == null) {
-            transaction.replace(mainFrameLayout, frag);
+        boolean isTablet = getResources().getBoolean(R.bool.isLandscape);
+        if (isTablet) {
+            transaction.replace(R.id.details_framelayout, frag);
             transaction.addToBackStack(null);
             transaction.commit();
         } else {
-            transaction.replace(numbers, frag);
+            transaction.replace(R.id.options_framelayout, frag);
             transaction.addToBackStack(null);
             transaction.commit();
 

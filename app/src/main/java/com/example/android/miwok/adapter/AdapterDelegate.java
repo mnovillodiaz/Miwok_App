@@ -1,4 +1,4 @@
-package com.example.android.miwok;
+package com.example.android.miwok.adapter;
 
 import android.animation.ValueAnimator;
 import android.support.v7.widget.RecyclerView;

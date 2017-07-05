@@ -1,12 +1,12 @@
 <!-- Layout for the main screen -->
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    android:id="@+id/mainFrameLayout">
+    android:id="@+id/mainlayout">
     <!-- "Fragment A" -->
-    <fragment class="com.example.android.miwok.OptionsFragment"
-        android:id="@+id/options"
+    <FrameLayout
+        android:id="@+id/options_framelayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-</FrameLayout>
+</LinearLayout>
