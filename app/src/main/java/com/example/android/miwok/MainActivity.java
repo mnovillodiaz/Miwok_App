@@ -32,8 +32,20 @@ public class MainActivity extends AppCompatActivity {
         Fragment frag = new OptionsFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.add(R.id.options_framelayout, frag);
-        transaction.addToBackStack(null);
         transaction.commit();
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        boolean isTablet = getResources().getBoolean(R.bool.isLandscape);
+        if(isTablet){
+            super.onBackPressed();
+        }
+        else if (getFragmentManager().getBackStackEntryCount() > 0) {
+            getFragmentManager().popBackStack();
+        } else {
+            super.onBackPressed();
+        }
     }
 }
