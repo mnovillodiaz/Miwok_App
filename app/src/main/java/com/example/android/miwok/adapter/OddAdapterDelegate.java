@@ -14,6 +14,8 @@ import com.example.android.miwok.Word;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.android.miwok.AnimationUtils.setAnimation;
+
 /**
  * Created by mdiaz on 27/06/17.
  */

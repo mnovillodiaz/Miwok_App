@@ -8,9 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.android.miwok.AnimationUtils;
 import com.example.android.miwok.R;
 import com.example.android.miwok.Word;
-import com.example.android.miwok.adapter.AdapterDelegate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,7 +74,7 @@ public class EvenAdapterDelegate extends AdapterDelegate<List<Word>> {
         vh.mPlayIcon.setBackgroundResource(colorResourceId);
 
         //applying basic animation
-        setAnimation(vh.mWordGroup);
+        AnimationUtils.setAnimation(vh.mWordGroup);
 
     }
 

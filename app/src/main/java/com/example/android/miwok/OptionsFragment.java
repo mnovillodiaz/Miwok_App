@@ -12,7 +12,7 @@ import android.widget.TextView;
  * Created by mdiaz on 02.07.17.
  */
 
-public class OptionsFragment  extends Fragment implements View.OnClickListener {
+public class OptionsFragment extends Fragment implements View.OnClickListener {
 
     public OptionsFragment() {
         // Required empty public constructor
@@ -39,7 +39,7 @@ public class OptionsFragment  extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.numbers_category:
                 goToFragment(new NumbersFragment());
                 break;
@@ -59,14 +59,13 @@ public class OptionsFragment  extends Fragment implements View.OnClickListener {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         boolean isTablet = getResources().getBoolean(R.bool.isLandscape);
         if (isTablet) {
-            transaction.replace(R.id.details_framelayout, frag);
-            transaction.addToBackStack(null);
-            transaction.commit();
+            transaction.replace(R.id.details_framelayout, frag)
+                    /*.addToBackStack(null)*/
+                    .commit();
         } else {
-            transaction.replace(R.id.options_framelayout, frag);
-            transaction.addToBackStack(null);
-            transaction.commit();
-
+            transaction.replace(R.id.options_framelayout, frag)
+                    .addToBackStack(null)
+                    .commit();
         }
     }
 }
