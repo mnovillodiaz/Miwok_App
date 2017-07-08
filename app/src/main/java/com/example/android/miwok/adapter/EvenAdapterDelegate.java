@@ -26,12 +26,15 @@ public class EvenAdapterDelegate extends AdapterDelegate<List<Word>> {
     private ArrayList<Word> words;
     private int colorResourceId;
     private Context context;
+    public final OnListItemClick listener;
 
 
-    protected EvenAdapterDelegate(Context context, ArrayList<Word> words, int colorResourceId) {
+    protected EvenAdapterDelegate(Context context, ArrayList<Word> words, int colorResourceId,
+                                  final OnListItemClick listener) {
         this.context = context;
         this.words = words;
         this.colorResourceId = colorResourceId;
+        this.listener = listener;
     }
 
 
@@ -78,6 +81,13 @@ public class EvenAdapterDelegate extends AdapterDelegate<List<Word>> {
 
         //applying basic animation
         AnimationUtils.setAnimation(vh.mWordGroup);
+
+        vh.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onClickListener(word);
+            }
+        });
 
     }
 

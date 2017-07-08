@@ -1,11 +1,11 @@
 package com.example.android.miwok;
 
 
+import android.app.Fragment;
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.android.miwok.adapter.DividerItemDecoration;
+import com.example.android.miwok.adapter.OnListItemClick;
 import com.example.android.miwok.adapter.RvWordAdapter;
 
 import java.util.ArrayList;
@@ -97,7 +98,8 @@ public class PhrasesFragment extends Fragment {
         rvWords.setHasFixedSize(true);
 
         // Create adapter passing in the sample user data
-        RvWordAdapter adapter = new RvWordAdapter(getActivity(), words, R.color.category_phrases, new RvWordAdapter.OnListItemClick() {
+        RvWordAdapter adapter = new RvWordAdapter(getActivity(), words, R.color.category_phrases,
+                new OnListItemClick() {
             @Override
             public void onClickListener(Word item) {
                 // Request audio focus for playback

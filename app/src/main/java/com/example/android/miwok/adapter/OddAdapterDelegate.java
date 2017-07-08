@@ -27,11 +27,14 @@ public class OddAdapterDelegate extends AdapterDelegate<List<Word>> {
     private ArrayList<Word> words;
     private int colorResourceId;
     private Context context;
+    public final OnListItemClick listener;
 
-    public OddAdapterDelegate(Context context, ArrayList<Word> words, int colorResourceId) {
+    public OddAdapterDelegate(Context context, ArrayList<Word> words, int colorResourceId,
+                              final OnListItemClick listener) {
         this.context = context;
         this.words = words;
         this.colorResourceId = colorResourceId;
+        this.listener = listener;
     }
 
     @Override
@@ -73,6 +76,13 @@ public class OddAdapterDelegate extends AdapterDelegate<List<Word>> {
 
         //applying basic animation
         setAnimation(vh.mWordGroupOdd);
+
+        vh.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onClickListener(word);
+            }
+        });
 
     }
 

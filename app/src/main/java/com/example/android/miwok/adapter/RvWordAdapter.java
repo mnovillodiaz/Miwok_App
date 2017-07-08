@@ -2,7 +2,6 @@ package com.example.android.miwok.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.android.miwok.Word;
@@ -32,8 +31,10 @@ public class RvWordAdapter extends RecyclerView.Adapter {
 
         // Delegates
         delegatesManager = new AdapterDelegatesManager<>();
-        delegatesManager.addDelegate(new OddAdapterDelegate(context, words, ColorResourceId));
-        delegatesManager.addDelegate(new EvenAdapterDelegate(context, words, ColorResourceId));
+        delegatesManager.addDelegate(new OddAdapterDelegate(context, words, ColorResourceId,
+                listener));
+        delegatesManager.addDelegate(new EvenAdapterDelegate(context, words, ColorResourceId,
+                listener));
 
     }
 
@@ -46,15 +47,6 @@ public class RvWordAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         delegatesManager.onBindViewHolder(mWords, position, holder);
-
-        //TODO Ask Meri: is this the correct place to implement the OnClickListener using delegates?
-        final Word word = mWords.get(position);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listener.onClickListener(word);
-                }
-            });
     }
 
 
@@ -68,11 +60,6 @@ public class RvWordAdapter extends RecyclerView.Adapter {
     @Override
     public int getItemCount() {
         return mWords.size();
-    }
-
-
-    public interface OnListItemClick {
-        void onClickListener(Word item);
     }
 
 }
