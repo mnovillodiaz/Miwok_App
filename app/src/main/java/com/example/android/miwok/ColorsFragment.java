@@ -12,14 +12,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.android.miwok.adapter.DividerItemDecoration;
 import com.example.android.miwok.adapter.RvWordAdapter;
 
 import java.util.ArrayList;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class ColorsFragment extends Fragment {
+
+    @BindView(R.id.rvWordList) RecyclerView rvWords;
 
     private MediaPlayer mediaPlayer;
     private MediaPlayer.OnCompletionListener listener = new MediaPlayer.OnCompletionListener() {
@@ -54,6 +60,7 @@ public class ColorsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.rv_word_list, container, false);
+        ButterKnife.bind(this, rootView);
 
 
         final AudioManager am = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
@@ -85,9 +92,7 @@ public class ColorsFragment extends Fragment {
         words.add(new Word("mustard yellow", "chiwiiṭә", R.drawable.color_mustard_yellow,
                 R.raw.color_mustard_yellow));
 
-        //RecyclerView Adapter in use
-        // Lookup the recyclerview in activity layout
-        RecyclerView rvWords = (RecyclerView) rootView.findViewById(R.id.rvWordList);
+       // Fixing size to be increase performance
         rvWords.setHasFixedSize(true);
 
         // Create adapter passing in the sample user data

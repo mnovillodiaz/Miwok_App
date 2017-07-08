@@ -12,14 +12,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.android.miwok.adapter.DividerItemDecoration;
 import com.example.android.miwok.adapter.RvWordAdapter;
 
 import java.util.ArrayList;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class PhrasesFragment extends Fragment {
+
+    @BindView(R.id.rvWordList) RecyclerView rvWords;
 
     private MediaPlayer mediaPlayer;
     private MediaPlayer.OnCompletionListener listener = new MediaPlayer.OnCompletionListener() {
@@ -54,7 +60,7 @@ public class PhrasesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.rv_word_list, container, false);
-
+        ButterKnife.bind(this, rootView);
 
         final AudioManager am = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
         final AudioManager.OnAudioFocusChangeListener afChangeListener =
@@ -86,9 +92,8 @@ public class PhrasesFragment extends Fragment {
         words.add(new Word("Let’s go.", "yoowutis", R.raw.phrase_lets_go));
         words.add(new Word("Come here.", "әnni'nem", R.raw.phrase_come_here));
 
-        //RecyclerView Adapter in use
-        // Lookup the RecyclerView in activity layout
-        RecyclerView rvWords = (RecyclerView) rootView.findViewById(R.id.rvWordList);
+
+        // Fixing size to be increase performance
         rvWords.setHasFixedSize(true);
 
         // Create adapter passing in the sample user data

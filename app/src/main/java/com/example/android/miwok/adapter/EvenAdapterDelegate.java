@@ -15,6 +15,9 @@ import com.example.android.miwok.Word;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by mdiaz on 29/06/17.
  */
@@ -80,22 +83,17 @@ public class EvenAdapterDelegate extends AdapterDelegate<List<Word>> {
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        public ImageView mImageView;
-        public TextView mdefaultText;
-        public TextView mMiwokText;
-        public View mTextContainer;
-        public View mWordGroup;
-        public ImageView mPlayIcon;
+        @BindView(R.id.image) ImageView mImageView;
+        @BindView(R.id.defaultText) TextView mdefaultText;
+        @BindView(R.id.miwokText) TextView mMiwokText;
+        @BindView(R.id.text_container) View mTextContainer;
+        @BindView(R.id.word_group) View mWordGroup;
+        @BindView(R.id.playIcon) ImageView mPlayIcon;
 
 
         public ViewHolder(View itemView) {
             super(itemView);
-            mImageView = (ImageView) itemView.findViewById(R.id.image);
-            mdefaultText = (TextView) itemView.findViewById(R.id.defaultText);
-            mMiwokText = (TextView) itemView.findViewById(R.id.miwokText);
-            mTextContainer = itemView.findViewById(R.id.text_container);
-            mWordGroup = itemView.findViewById(R.id.word_group);
-            mPlayIcon = (ImageView) itemView.findViewById(R.id.playIcon);
+            ButterKnife.bind(this, itemView);
         }
     }
 

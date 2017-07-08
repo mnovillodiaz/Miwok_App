@@ -17,7 +17,6 @@ package com.example.android.miwok;
 
 
 import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
@@ -28,11 +27,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         // Set the content of the activity to use the activity_main.xml layout file
+        // displaying the options fragment inside
         setContentView(R.layout.activity_main);
         Fragment frag = new OptionsFragment();
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.add(R.id.options_framelayout, frag);
-        transaction.commit();
+        getFragmentManager().beginTransaction()
+                .add(R.id.options_framelayout, frag)
+                .commit();
 
     }
 

@@ -14,6 +14,9 @@ import com.example.android.miwok.Word;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 import static com.example.android.miwok.AnimationUtils.setAnimation;
 
 /**
@@ -75,20 +78,14 @@ public class OddAdapterDelegate extends AdapterDelegate<List<Word>> {
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        public ImageView mImageViewOdd;
-        public TextView mdefaultTextOdd;
-        public TextView mMiwokTextOdd;
-        public View mTextContainerOdd;
-        public View mWordGroupOdd;
+        @BindView(R.id.image_odd) ImageView mImageViewOdd;
+        @BindView(R.id.defaultText_odd) TextView mdefaultTextOdd;
+        @BindView(R.id.miwokText_odd) TextView mMiwokTextOdd;
+        @BindView(R.id.word_group_odd) View mWordGroupOdd;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            mImageViewOdd = (ImageView) itemView.findViewById(R.id.image_odd);
-            mdefaultTextOdd = (TextView) itemView.findViewById(R.id.defaultText_odd);
-            mMiwokTextOdd = (TextView) itemView.findViewById(R.id.miwokText_odd);
-            mTextContainerOdd = itemView.findViewById(R.id.text_container_odd);
-            mWordGroupOdd = itemView.findViewById(R.id.word_group_odd);
-
+            ButterKnife.bind(this, itemView);
         }
     }
 }

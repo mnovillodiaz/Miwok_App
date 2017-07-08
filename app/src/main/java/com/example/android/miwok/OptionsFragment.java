@@ -1,18 +1,21 @@
 package com.example.android.miwok;
 
-import android.os.Bundle;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by mdiaz on 02.07.17.
  */
 
-public class OptionsFragment extends Fragment implements View.OnClickListener {
+public class OptionsFragment extends Fragment {
+
 
     public OptionsFragment() {
         // Required empty public constructor
@@ -23,37 +26,30 @@ public class OptionsFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.options, container, false);
-
-        TextView numbersTextView = (TextView) rootView.findViewById(R.id.numbers_category);
-        TextView familyTextView = (TextView) rootView.findViewById(R.id.family_category);
-        TextView colorsTextView = (TextView) rootView.findViewById(R.id.colors_category);
-        TextView phrasesTextView = (TextView) rootView.findViewById(R.id.phrases_category);
-
-        numbersTextView.setOnClickListener(this);
-        familyTextView.setOnClickListener(this);
-        colorsTextView.setOnClickListener(this);
-        phrasesTextView.setOnClickListener(this);
-
+        ButterKnife.bind(this, rootView);
         return rootView;
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.numbers_category:
-                goToFragment(new NumbersFragment());
-                break;
-            case R.id.family_category:
-                goToFragment(new FamilyFragment());
-                break;
-            case R.id.colors_category:
-                goToFragment(new ColorsFragment());
-                break;
-            case R.id.phrases_category:
-                goToFragment(new PhrasesFragment());
-                break;
-        }
+    @OnClick(R.id.numbers_category)
+    public void numbers_category(){
+        goToFragment(new NumbersFragment());
     }
+
+    @OnClick(R.id.family_category)
+    public void family_category(){
+        goToFragment(new FamilyFragment());
+    }
+
+    @OnClick(R.id.colors_category)
+    public void colors_category(){
+        goToFragment(new ColorsFragment());
+    }
+
+    @OnClick(R.id.phrases_category)
+    public void phrases_category(){
+        goToFragment(new PhrasesFragment());
+    }
+
 
     private void goToFragment(Fragment frag) {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
