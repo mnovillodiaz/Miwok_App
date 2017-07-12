@@ -17,10 +17,27 @@ package com.example.android.miwok;
 
 
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OptionsFragment.OnOptionClickListener{
+
+    @Override
+    public void onOptionClick(Fragment fragment) {
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        boolean isTablet = getResources().getBoolean(R.bool.isLandscape);
+        if (isTablet) {
+            transaction.replace(R.id.details_framelayout, fragment)
+                    /*.addToBackStack(null)*/
+                    .commit();
+        } else {
+            transaction.replace(R.id.options_framelayout, fragment)
+                    .addToBackStack(null)
+                    .commit();
+        }
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +50,9 @@ public class MainActivity extends AppCompatActivity {
         getFragmentManager().beginTransaction()
                 .add(R.id.options_framelayout, frag)
                 .commit();
-
     }
 
-    @Override
+/*    @Override
     public void onBackPressed() {
         boolean isTablet = getResources().getBoolean(R.bool.isLandscape);
         if(isTablet){
@@ -47,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
         } else {
             super.onBackPressed();
         }
-    }
-
+    }*/
 
 }

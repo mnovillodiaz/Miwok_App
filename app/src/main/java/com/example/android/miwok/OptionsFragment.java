@@ -1,7 +1,7 @@
 package com.example.android.miwok;
 
 import android.app.Fragment;
-import android.app.FragmentTransaction;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +16,7 @@ import butterknife.OnClick;
 
 public class OptionsFragment extends Fragment {
 
+    OnOptionClickListener listener;
 
     public OptionsFragment() {
         // Required empty public constructor
@@ -30,38 +31,42 @@ public class OptionsFragment extends Fragment {
         return rootView;
     }
 
+
+    // Container Activity must implement this interface
+    public interface OnOptionClickListener {
+        public void onOptionClick(Fragment fragment);
+    }
+
+   //To be sure that the activity implements the OnOptionClick
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnOptionClickListener) {
+            listener = (OnOptionClickListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnOptionClickListener");
+        }
+    }
+
     @OnClick(R.id.numbers_category)
     public void numbers_category(){
-        goToFragment(new NumbersFragment());
+        listener.onOptionClick(new NumbersFragment());
     }
 
     @OnClick(R.id.family_category)
     public void family_category(){
-        goToFragment(new FamilyFragment());
+        listener.onOptionClick(new FamilyFragment());
     }
 
     @OnClick(R.id.colors_category)
     public void colors_category(){
-        goToFragment(new ColorsFragment());
+        listener.onOptionClick(new ColorsFragment());
     }
 
     @OnClick(R.id.phrases_category)
     public void phrases_category(){
-        goToFragment(new PhrasesFragment());
+        listener.onOptionClick(new PhrasesFragment());
     }
 
-
-    private void goToFragment(Fragment frag) {
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        boolean isTablet = getResources().getBoolean(R.bool.isLandscape);
-        if (isTablet) {
-            transaction.replace(R.id.details_framelayout, frag)
-                    /*.addToBackStack(null)*/
-                    .commit();
-        } else {
-            transaction.replace(R.id.options_framelayout, frag)
-                    .addToBackStack(null)
-                    .commit();
-        }
-    }
 }
